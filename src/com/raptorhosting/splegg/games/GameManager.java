@@ -45,6 +45,8 @@ public class GameManager {
 			
 			sp.getPlayer().setLevel(0);
 			
+			sp.getScoreboard().hideScore("Queue");
+			
 			sp.getUtilPlayer().setAlive(true);
 			
 			if (c > map.getSpawnCount()) {

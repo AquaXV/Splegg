@@ -2,6 +2,7 @@ package com.raptorhosting.splegg.runnables;
 
 import com.raptorhosting.splegg.Splegg;
 import com.raptorhosting.splegg.games.Game;
+import com.raptorhosting.splegg.scoreboards.ScoreboardUtils;
 
 public class GameTime implements Runnable {
 	
@@ -19,6 +20,7 @@ public class GameTime implements Runnable {
 		if (game.getCount() > 0) {
 			
 			splegg.games.checkWinner(game);
+			ScoreboardUtils.get().setDisplayAll(game, "Splegg | " + splegg.game.getDigitTime(game.getLobbyCount()));
 			
 			if (game.getCount() % 300 == 0) {
 				splegg.game.ingameTimer(game.getCount(), game.getPlayers());

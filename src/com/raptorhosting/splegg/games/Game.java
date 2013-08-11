@@ -19,6 +19,7 @@ import com.raptorhosting.splegg.players.SpleggPlayer;
 import com.raptorhosting.splegg.players.UtilPlayer;
 import com.raptorhosting.splegg.runnables.GameTime;
 import com.raptorhosting.splegg.runnables.LobbyCountdown;
+import com.raptorhosting.splegg.scoreboards.ScoreboardUtils;
 import com.sk89q.worldedit.bukkit.selections.CuboidSelection;
 import com.sk89q.worldedit.bukkit.selections.Selection;
 
@@ -150,6 +151,8 @@ public class Game {
 						splegg.chat.sendMessage(player, "Players in your game: " + getPlayersIn());
 						
 						splegg.chat.sendMessage(player, "You have joined the lobby for map §c" + map.getName() + "§6.");
+
+						ScoreboardUtils.get().setScoreAll(this, "Queue", players.size());
 						
 						if (this.players.size() >= splegg.getConfig().getInt("auto-start.players") && (!this.isStarting())) {
 							startCountdown();
@@ -182,6 +185,8 @@ public class Game {
 							splegg.chat.sendMessage(player, "You have been teleported to the splegg lobby. You will be teleported to the map on the game start.");
 							
 							splegg.chat.sendMessage(player, "Players in your game: " + getPlayersIn());
+							
+							ScoreboardUtils.get().setScoreAll(this, "Queue", players.size());
 							
 							splegg.chat.sendMessage(player, "You have joined the lobby for map §c" + map.getName() + "§6.");
 							splegg.chat.bcNotForPlayer(player, (splegg.special.contains(player.getName()) ? "§4" : "§a") + player.getName() + "&6 has joined the game. &e" + players.size() + "/" + max, this);
@@ -219,6 +224,7 @@ public class Game {
 			this.setLobbyCount(31);
 			for (SpleggPlayer sp : players.values()) {
 				sp.getPlayer().setLevel(getLobbyCount());
+				sp.getScoreboard().setScore("Starting in", getLobbyCount());
 			}
 			this.counter = Bukkit.getScheduler().scheduleSyncRepeatingTask(splegg, new LobbyCountdown(this, getLobbyCount()), 0L, 20L);
 		}
@@ -229,6 +235,7 @@ public class Game {
 		SpleggPlayer sp = getPlayer(u.getPlayer());
 		if (status == Status.ENDING || status == Status.INGAME) {
 			splegg.chat.sendMessage(u.getPlayer(), "You broke " + sp.getBroken() + " blocks.");
+			ScoreboardUtils.get().setScoreAll(this, "Players Left", players.size());
 		}
 		players.remove(u.getName());
 		u.getPlayer().teleport(splegg.config.getLobby());
