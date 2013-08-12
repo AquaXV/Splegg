@@ -12,6 +12,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.raptorhosting.splegg.Splegg;
 import com.raptorhosting.splegg.maps.Map;
 import com.raptorhosting.splegg.players.SpleggPlayer;
+import com.raptorhosting.splegg.scoreboards.ScoreboardUtils;
 
 public class GameManager {
 	
@@ -40,6 +41,8 @@ public class GameManager {
 		splegg.chat.bc("You are playing on &2" + game.getMap().getName() + "&6.", game);
 		
 		Map map = game.getMap();
+		
+		ScoreboardUtils.get().hideScoreAll(game, "Starting in");
 		
 		for (SpleggPlayer sp : game.players.values()) {
 			
