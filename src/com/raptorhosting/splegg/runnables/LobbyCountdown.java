@@ -5,6 +5,7 @@ import org.bukkit.Bukkit;
 import com.raptorhosting.splegg.Splegg;
 import com.raptorhosting.splegg.games.Game;
 import com.raptorhosting.splegg.players.SpleggPlayer;
+import com.raptorhosting.splegg.scoreboards.ScoreboardUtils;
 
 public class LobbyCountdown implements Runnable {
 	
@@ -24,7 +25,10 @@ public class LobbyCountdown implements Runnable {
 			
 			for (SpleggPlayer sp : game.getPlayers().values()) {
 				sp.getPlayer().setLevel(lobbycount);
+				sp.getScoreboard().setScore("Starting in", game.getLobbyCount());
 			}
+			
+			ScoreboardUtils.get().setScoreAll(game, "Queue", game.getPlayers().size());
 			
 			game.getSign().update(game.getMap(), false);
 			

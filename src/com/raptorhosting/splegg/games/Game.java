@@ -230,7 +230,7 @@ public class Game {
 		}
 		
 	}
-
+	
 	public void leaveGame(UtilPlayer u) {
 		SpleggPlayer sp = getPlayer(u.getPlayer());
 		if (status == Status.ENDING || status == Status.INGAME) {
@@ -247,7 +247,7 @@ public class Game {
 		store.reset();
 		u.getPlayer().setFallDistance(0.0F);
 		if (!splegg.disabling) {
-			getSign().update(map,false);
+			getSign().update(map, false);
 		}
 	}
 	

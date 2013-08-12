@@ -4,7 +4,6 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.scoreboard.Scoreboard;
 
 public class InvStore {
 	
@@ -17,7 +16,6 @@ public class InvStore {
 	int			level;
 	float		exp;
 	GameMode	gamemode;
-	Scoreboard scoreboard;
 	
 	public InvStore(Player player) {
 	
@@ -29,7 +27,6 @@ public class InvStore {
 		this.fire = 0;
 		this.armour = null;
 		this.inv = null;
-		this.scoreboard = null;
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -43,10 +40,7 @@ public class InvStore {
 		this.player.setFoodLevel(this.food);
 		this.player.setFireTicks(this.fire);
 		this.player.setGameMode(this.gamemode);
-		if (scoreboard == null) {
-			scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
-		}
-		this.player.setScoreboard(scoreboard);
+		this.player.setScoreboard(Bukkit.getScoreboardManager().getNewScoreboard());
 		this.player.updateInventory();
 	}
 	
@@ -60,7 +54,6 @@ public class InvStore {
 		this.food = this.player.getFoodLevel();
 		this.fire = this.player.getFireTicks();
 		this.health = this.player.getHealth();
-		this.scoreboard = this.player.getScoreboard();
 		this.gamemode = this.player.getGameMode();
 		this.player.updateInventory();
 	}
@@ -75,7 +68,6 @@ public class InvStore {
 		this.gamemode = null;
 		this.armour = null;
 		this.inv = null;
-		this.scoreboard = null;
 		
 	}
 	
